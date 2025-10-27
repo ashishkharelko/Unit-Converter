@@ -21,7 +21,7 @@ build/
 *.log
 *.pot
 *.mo
-*.sqlite3
+# *.sqlite3
 *.sql
 *.sql.gz
 *.sql.bz2
