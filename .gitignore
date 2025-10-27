@@ -21,13 +21,13 @@ build/
 *.log
 *.pot
 *.mo
-# *.sqlite3
+*.sqlite3
 *.sql
 *.sql.gz
 *.sql.bz2
 migrations/
 local_settings.py
-# settings.py
+settings.py
 *.env
 .env
 .env.local
