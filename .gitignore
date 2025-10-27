@@ -1,0 +1,112 @@
+# Python/Django general
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+*.whl
+*.dist-info/
+dist/
+build/
+*.cache
+*.bak
+*.swp
+*~
+
+# Django specific
+*.log
+*.pot
+*.mo
+# *.sqlite3
+*.sql
+*.sql.gz
+*.sql.bz2
+migrations/
+local_settings.py
+# settings.py
+*.env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.envrc
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# Static and media files
+staticfiles/
+media/
+collected_static/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.swp
+*.swo
+*.swn
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Testing and coverage
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.hypothesis/
+.benchmarks/
+
+# Documentation
+docs/_build/
+docs/build/
+
+# Package manager
+Pipfile.lock
+poetry.lock
+
+# Miscellaneous
+*.bak
+*.gho
+*.orig
+*.tmp
+*.backup
+*.dump
+*.db
+*.sqlite3
+*.sql
+*.prof
+*.profile
+
+# Sensitive or local configuration
+secrets.json
+credentials.json
+*.key
+*.pem
+*.crt
+*.cert
+*.cer
+*.jks
+*.keystore
+*.truststore

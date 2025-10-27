@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="text-center mb-4">Conversion Result</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Result</h5>
+                <p class="card-text my-4 text-center" style="font-size:1.5rem;font-weight:bold;color:red;">
+                    {{ value }} {{ from_unit.name }} = {{ result|floatformat:4 }} {{ to_unit.name }}
+                </p>
+                <a href="{% url 'index' %}" class="btn btn-primary">Convert Again</a>
+            </div>
+            
+  
+  {% if rates_info %}
+    <p class="mx-3">Rates: {{ rates_info }}</p>
+  {% endif %}
+  {% if attribution %}
+    <p class="mx-3">{{ attribution|safe }}</p>
+  {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

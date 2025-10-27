@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% comment %} {% extends 'converter/base.html' %} {% endcomment %}
+{% load custom_tags %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 bg-light p-4 m-3 rounded shadow">
+        <h2 class="text-center mb-4">Unit Converter</h2>
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <form method="post" action="{% url 'convert' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.value.id_for_label }}" class="form-label">{{ form.value.label }}</label>
+                {{ form.value|add_class:"form-control" }}
+                {% if form.value.errors %}
+                    <div class="text-danger">{{ form.value.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.unit_type.id_for_label }}" class="form-label">{{ form.unit_type.label }}</label>
+                {{ form.unit_type|add_class:"form-control" }}
+                {% if form.unit_type.errors %}
+                    <div class="text-danger">{{ form.unit_type.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.from_unit.id_for_label }}" class="form-label">{{ form.from_unit.label }}</label>
+                {{ form.from_unit|add_class:"form-control" }}
+                {% if form.from_unit.errors %}
+                    <div class="text-danger">{{ form.from_unit.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.to_unit.id_for_label }}" class="form-label">{{ form.to_unit.label }}</label>
+                {{ form.to_unit|add_class:"form-control" }}
+                {% if form.to_unit.errors %}
+                    <div class="text-danger">{{ form.to_unit.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Convert</button>
+        </form>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const unitTypeSelect = document.getElementById('id_unit_type');
+    const fromUnitSelect = document.getElementById('id_from_unit');
+    const toUnitSelect = document.getElementById('id_to_unit');
+
+    if (!unitTypeSelect) {
+        console.error('Error: Element with id="id_unit_type" not found in the DOM.');
+        return;
+    }
+    if (!fromUnitSelect || !toUnitSelect) {
+        console.error('Error: One or both unit dropdowns (id_from_unit, id_to_unit) not found.');
+        return;
+    }
+
+    function updateUnitDropdowns(unitTypeId) {
+        console.log('Fetching units for unit_type_id:', unitTypeId);
+        if (unitTypeId) {
+            fetch(`{% url 'index' %}?unit_type=${unitTypeId}`, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetch success:', data);
+                    fromUnitSelect.innerHTML = '<option value="">Select unit</option>' + (data.from_unit || '');
+                    toUnitSelect.innerHTML = '<option value="">Select unit</option>' + (data.to_unit || '');
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    fromUnitSelect.innerHTML = '<option value="">No units available</option>';
+                    toUnitSelect.innerHTML = '<option value="">No units available</option>';
+                });
+        } else {
+            fromUnitSelect.innerHTML = '<option value="">Select unit type first</option>';
+            toUnitSelect.innerHTML = '<option value="">Select unit type first</option>';
+        }
+    }
+
+    unitTypeSelect.addEventListener('change', function() {
+        updateUnitDropdowns(this.value);
+    });
+
+    // Trigger on page load
+    updateUnitDropdowns(unitTypeSelect.value);
+});
+</script>
+{% endblock %}
