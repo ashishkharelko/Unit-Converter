@@ -27,7 +27,7 @@ build/
 *.sql.bz2
 migrations/
 local_settings.py
-settings.py
+#settings.py
 *.env
 .env
 .env.local
